@@ -43,3 +43,7 @@ _build/
 # Conan
 *.pyc
 /test_package/build/
+
+# Docs
+docs/*
+!docs/README.md
