@@ -1,3 +1,11 @@
+This is a fork of Mateusz Pusz' `mp-coro` library with added comments, 
+docstrings, doxygen documentation, control transfer diagrams, links to external
+resources, etc. that I found useful while studying C++20 coroutines.
+
+**⇒** [**Documentation**](https://tttapa.github.io/mp-coro/Doxygen) **⇐**
+
+---
+
 [![GitHub license](https://img.shields.io/github/license/mpusz/mp-coro?cacheSeconds=3600&color=informational&label=License)](./LICENSE.md)
 
 # `mp-coro` - A C++20 coroutine support library
