@@ -29,20 +29,19 @@
 
 namespace mp_coro {
 
-template<awaitable A>
-[[nodiscard]] decltype(auto) sync_await(A&& awaitable)
-{
-  struct sync {
-    std::binary_semaphore sem{0};
-    void notify_awaitable_completed() { sem.release(); }
-  };
+template <awaitable A>
+[[nodiscard]] decltype(auto) sync_await(A &&awaitable) {
+    struct sync {
+        std::binary_semaphore sem {0};
+        void notify_awaitable_completed() { sem.release(); }
+    };
 
-  TRACE_FUNC();
-  auto sync_task = detail::make_synchronized_task<sync>(std::forward<A>(awaitable));
-  sync work_done;
-  sync_task.start(work_done);
-  work_done.sem.acquire();
-  return sync_task.get();
+    TRACE_FUNC();
+    auto sync_task = detail::make_synchronized_task<sync>(std::forward<A>(awaitable));
+    sync work_done;
+    sync_task.start(work_done);
+    work_done.sem.acquire();
+    return sync_task.get();
 }
 
 } // namespace mp_coro

@@ -24,8 +24,8 @@
 
 #include <mp-coro/bits/noncopyable.h>
 #include <mp-coro/bits/task_promise_storage.h>
-#include <mp-coro/coro_ptr.h>
 #include <mp-coro/concepts.h>
+#include <mp-coro/coro_ptr.h>
 #include <mp-coro/trace.h>
 #include <mp-coro/type_traits.h>
 #include <concepts>
@@ -33,108 +33,93 @@
 
 namespace mp_coro {
 
-template<task_value_type T = void, typename Allocator = void>
+template <task_value_type T = void, typename Allocator = void>
 class [[nodiscard]] task {
-public:
-  using value_type = T;
-  
-  struct promise_type : private detail::noncopyable, detail::task_promise_storage<T> {
-    std::coroutine_handle<> continuation = std::noop_coroutine();
+  public:
+    using value_type = T;
 
-    static std::suspend_always initial_suspend() noexcept
-    { 
-      TRACE_FUNC();
-      return {};
-    }
+    struct promise_type : private detail::noncopyable, detail::task_promise_storage<T> {
+        std::coroutine_handle<> continuation = std::noop_coroutine();
 
-    static awaiter_of<void> auto final_suspend() noexcept
-    {
-      struct final_awaiter : std::suspend_always {
-        std::coroutine_handle<> await_suspend(std::coroutine_handle<promise_type> this_coro) noexcept
-        {
-          TRACE_FUNC();
-          return this_coro.promise().continuation;
+        static std::suspend_always initial_suspend() noexcept {
+            TRACE_FUNC();
+            return {};
         }
-      };
-      TRACE_FUNC();
-      return final_awaiter{};
-    }
 
-    task get_return_object() noexcept
-    {
-      TRACE_FUNC();
-      return this;
-    }
-  };
+        static awaiter_of<void> auto final_suspend() noexcept {
+            struct final_awaiter : std::suspend_always {
+                std::coroutine_handle<>
+                await_suspend(std::coroutine_handle<promise_type> this_coro) noexcept {
+                    TRACE_FUNC();
+                    return this_coro.promise().continuation;
+                }
+            };
+            TRACE_FUNC();
+            return final_awaiter {};
+        }
 
-  task(task&&) = default;
-  task& operator=(task&&) = delete;
-
-  awaiter_of<T> auto operator co_await() const noexcept
-  {
-    TRACE_FUNC();
-    return awaiter(*promise_);
-  }
-
-  awaiter_of<const T&> auto operator co_await() const & noexcept
-    requires std::move_constructible<T>
-  {
-    TRACE_FUNC();
-    return awaiter(*promise_);
-  }
-
-  awaiter_of<T&&> auto operator co_await() const && noexcept
-    requires std::move_constructible<T>
-  {
-    TRACE_FUNC();
-
-    struct rvalue_awaiter : awaiter {
-      T&& await_resume()
-      {
-        TRACE_FUNC();
-        return std::move(this->promise).get();
-      }
+        task get_return_object() noexcept {
+            TRACE_FUNC();
+            return this;
+        }
     };
-    return rvalue_awaiter({*promise_});
-  }
 
-private:
-  struct awaiter {
-    promise_type& promise;
+    task(task &&) = default;
+    task &operator=(task &&) = delete;
 
-    bool await_ready() const noexcept
-    {
-      TRACE_FUNC();
-      return std::coroutine_handle<promise_type>::from_promise(promise).done();
+    awaiter_of<T> auto operator co_await() const noexcept {
+        TRACE_FUNC();
+        return awaiter(*promise_);
     }
 
-    std::coroutine_handle<> await_suspend(std::coroutine_handle<> h) const noexcept
-    {
-      TRACE_FUNC();
-      promise.continuation = h;
-      return std::coroutine_handle<promise_type>::from_promise(promise);
+    awaiter_of<const T &> auto
+    operator co_await() const &noexcept requires std::move_constructible<T> {
+        TRACE_FUNC();
+        return awaiter(*promise_);
     }
 
-    decltype(auto) await_resume() const
-    {
-      TRACE_FUNC();
-      return promise.get();
-    }
-  };
-  
-  promise_ptr<promise_type> promise_;
+    awaiter_of<T &&> auto operator co_await() const &&noexcept requires std::move_constructible<T> {
+        TRACE_FUNC();
 
-  task(promise_type* promise): promise_(promise)
-  {
-    TRACE_FUNC();
-  }
+        struct rvalue_awaiter : awaiter {
+            T &&await_resume() {
+                TRACE_FUNC();
+                return std::move(this->promise).get();
+            }
+        };
+        return rvalue_awaiter({*promise_});
+    }
+
+  private:
+    struct awaiter {
+        promise_type &promise;
+
+        bool await_ready() const noexcept {
+            TRACE_FUNC();
+            return std::coroutine_handle<promise_type>::from_promise(promise).done();
+        }
+
+        std::coroutine_handle<> await_suspend(std::coroutine_handle<> h) const noexcept {
+            TRACE_FUNC();
+            promise.continuation = h;
+            return std::coroutine_handle<promise_type>::from_promise(promise);
+        }
+
+        decltype(auto) await_resume() const {
+            TRACE_FUNC();
+            return promise.get();
+        }
+    };
+
+    promise_ptr<promise_type> promise_;
+
+    task(promise_type *promise) : promise_(promise) { TRACE_FUNC(); }
 };
 
-template<awaitable A>
-task<remove_rvalue_reference_t<await_result_t<A>>> make_task(A&& awaitable)
-{
-  TRACE_FUNC();
-  co_return co_await std::forward<A>(awaitable);
+template <awaitable A>
+task<remove_rvalue_reference_t<await_result_t<A>>> make_task(A &&awaitable) {
+    TRACE_FUNC();
+    co_return co_await std::forward<A>(awaitable);
 }
 
 } // namespace mp_coro

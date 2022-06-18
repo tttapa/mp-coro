@@ -28,34 +28,30 @@
 
 namespace mp_coro::detail {
 
-template<typename T>
+template <typename T>
 struct task_promise_storage_base : nonvoid_storage<T> {
-  void unhandled_exception()
-    noexcept(noexcept(this->set_exception(std::current_exception())))
-  { 
-    TRACE_FUNC();
-    this->set_exception(std::current_exception());
-  }
+    void unhandled_exception() noexcept(noexcept(this->set_exception(std::current_exception()))) {
+        TRACE_FUNC();
+        this->set_exception(std::current_exception());
+    }
 };
 
-template<typename T>
+template <typename T>
 struct task_promise_storage : task_promise_storage_base<T> {
-  template<typename U>
-  void return_value(U&& value)
-    noexcept(noexcept(this->set_value(std::forward<U>(value))))
-    requires requires { this->set_value(std::forward<U>(value)); }
-  {
-    TRACE_FUNC();
-    this->set_value(std::forward<U>(value));
-  }
+    template <typename U>
+    void return_value(U &&value) noexcept(
+        noexcept(this->set_value(std::forward<U>(value)))) requires requires {
+        this->set_value(std::forward<U>(value));
+    }
+    {
+        TRACE_FUNC();
+        this->set_value(std::forward<U>(value));
+    }
 };
 
-template<>
+template <>
 struct task_promise_storage<void> : task_promise_storage_base<void> {
-  void return_void() noexcept
-  {
-    TRACE_FUNC();
-  }
+    void return_void() noexcept { TRACE_FUNC(); }
 };
 
 } // namespace mp_coro::detail

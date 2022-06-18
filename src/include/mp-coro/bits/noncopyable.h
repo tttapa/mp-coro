@@ -25,9 +25,9 @@
 namespace mp_coro::detail {
 
 struct noncopyable {
-  noncopyable() = default;
-  noncopyable(const noncopyable&) = delete;
-  noncopyable& operator=(const noncopyable&) = delete;
+    noncopyable() = default;
+    noncopyable(const noncopyable &) = delete;
+    noncopyable &operator=(const noncopyable &) = delete;
 };
 
-}  // namespace mp_coro::detail
+} // namespace mp_coro::detail

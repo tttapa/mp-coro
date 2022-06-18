@@ -31,60 +31,60 @@ namespace mp_coro {
 
 namespace detail {
 
-template<typename Ret, typename Handle>
+template <typename Ret, typename Handle>
 Handle func_arg(Ret (*)(Handle));
 
-template<typename Ret, typename T, typename Handle>
+template <typename Ret, typename T, typename Handle>
 Handle func_arg(Ret (T::*)(Handle));
 
-template<typename Ret, typename T, typename Handle>
+template <typename Ret, typename T, typename Handle>
 Handle func_arg(Ret (T::*)(Handle) &);
 
-template<typename Ret, typename T, typename Handle>
+template <typename Ret, typename T, typename Handle>
 Handle func_arg(Ret (T::*)(Handle) &&);
 
-template<typename Ret, typename T, typename Handle>
+template <typename Ret, typename T, typename Handle>
 Handle func_arg(Ret (T::*)(Handle) const);
 
-template<typename Ret, typename T, typename Handle>
+template <typename Ret, typename T, typename Handle>
 Handle func_arg(Ret (T::*)(Handle) const &);
 
-template<typename Ret, typename T, typename Handle>
+template <typename Ret, typename T, typename Handle>
 Handle func_arg(Ret (T::*)(Handle) const &&);
 
-template<typename T>
-concept suspend_return_type =
-  std::is_void_v<T> ||
-  std::is_same_v<T, bool> ||
-  specialization_of<T, std::coroutine_handle>;
+template <typename T>
+concept suspend_return_type = std::is_void_v<T>       //
+                           || std::is_same_v<T, bool> //
+                           || specialization_of<T, std::coroutine_handle>;
 
 } // namespace detail
 
-template<typename T>
-concept awaiter =
-  requires(T&& t, decltype(detail::func_arg(&std::remove_reference_t<T>::await_suspend)) suspend_arg) {
+template <typename T>
+concept awaiter = requires(
+    T &&t, decltype(detail::func_arg(&std::remove_reference_t<T>::await_suspend)) suspend_arg) {
     { std::forward<T>(t).await_ready() } -> std::convertible_to<bool>;
-    { suspend_arg } -> std::convertible_to<std::coroutine_handle<>>; // TODO Why gcc does not inherit from `std::coroutine_handle<>`?
+    { suspend_arg } -> std::convertible_to<std::coroutine_handle<>>;
+    // TODO Why gcc does not inherit from `std::coroutine_handle<>`?
     { std::forward<T>(t).await_suspend(suspend_arg) } -> detail::suspend_return_type;
     std::forward<T>(t).await_resume();
-  };
-
-template<typename T, typename Value>
-concept awaiter_of = awaiter<T> && requires(T&& t) {
-  { std::forward<T>(t).await_resume() } -> std::same_as<Value>;
 };
 
-template<typename T>
-concept awaitable = requires(T&& t) {
-  { detail::get_awaiter(std::forward<T>(t)) } -> awaiter;
+template <typename T, typename Value>
+concept awaiter_of = awaiter<T> &&requires(T &&t) {
+    { std::forward<T>(t).await_resume() } -> std::same_as<Value>;
 };
 
-template<typename T, typename Value>
-concept awaitable_of = awaitable<T> && requires(T&& t) {
-  { detail::get_awaiter(std::forward<T>(t)) } -> awaiter_of<Value>;
+template <typename T>
+concept awaitable = requires(T &&t) {
+    { detail::get_awaiter(std::forward<T>(t)) } -> awaiter;
 };
 
-template<typename T>
+template <typename T, typename Value>
+concept awaitable_of = awaitable<T> &&requires(T &&t) {
+    { detail::get_awaiter(std::forward<T>(t)) } -> awaiter_of<Value>;
+};
+
+template <typename T>
 concept task_value_type = std::move_constructible<T> || std::is_reference_v<T> || std::is_void_v<T>;
 
 } // namespace mp_coro

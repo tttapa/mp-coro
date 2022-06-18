@@ -29,32 +29,32 @@ namespace mp_coro {
 
 struct void_type {};
 
-template<typename T>
-using nonvoid_await_result_t = std::conditional_t<std::is_void_v<await_result_t<T>>, void_type, await_result_t<T>>;
+template <typename T>
+using nonvoid_await_result_t =
+    std::conditional_t<std::is_void_v<await_result_t<T>>, void_type, await_result_t<T>>;
 
 namespace detail {
 
-template<typename T>
+template <typename T>
 class nonvoid_storage : public storage<T> {
-public:
-  using value_type = typename storage<T>::value_type;
+  public:
+    using value_type = typename storage<T>::value_type;
 
-  [[nodiscard]] const value_type& nonvoid_get() const & { return this->get(); }
-  [[nodiscard]] value_type&& nonvoid_get() && { return std::move(*this).get(); }
+    [[nodiscard]] const value_type &nonvoid_get() const & { return this->get(); }
+    [[nodiscard]] value_type &&nonvoid_get() && { return std::move(*this).get(); }
 
-  [[nodiscard]] T& nonvoid_get() const requires std::is_reference_v<T> { return this->get(); }
+    [[nodiscard]] T &nonvoid_get() const requires std::is_reference_v<T> { return this->get(); }
 };
 
-template<>
+template <>
 class nonvoid_storage<void> : public storage<void> {
-public:
-  using value_type = void_type;
+  public:
+    using value_type = void_type;
 
-  [[nodiscard]] void_type nonvoid_get() const
-  {
-    check_and_rethrow(this->result);
-    return void_type{};
-  }
+    [[nodiscard]] void_type nonvoid_get() const {
+        check_and_rethrow(this->result);
+        return void_type {};
+    }
 };
 
 } // namespace detail

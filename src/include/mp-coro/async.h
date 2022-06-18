@@ -30,49 +30,54 @@
 
 namespace mp_coro {
 
-template<std::invocable Func>
+template <std::invocable Func>
 class async {
-public:
-  using return_type = std::invoke_result_t<Func>;
-  template<typename F>
-    requires std::same_as<std::remove_cvref_t<F>, Func>
-  explicit async(F&& func): func_{std::forward<F>(func)} {}
+  public:
+    using return_type = std::invoke_result_t<Func>;
+    template <typename F>
+    requires std::same_as<std::remove_cvref_t<F>, Func> explicit async(F &&func)
+        : func_ {std::forward<F>(func)} {}
 
-  decltype(auto) operator co_await() & = delete; // async should be co_awaited only once (on rvalue)
-  decltype(auto) operator co_await() &&
-  {
-    struct awaiter {
-      async& awaitable;
-      bool await_ready() const noexcept { TRACE_FUNC(); return false; }
-      void await_suspend(std::coroutine_handle<> handle)
-      {
-        auto work = [&, handle]() {
-          TRACE_FUNC();
-          try {
-            if constexpr(std::is_void_v<return_type>)
-              awaitable.func_();
-            else
-              awaitable.result_.set_value(awaitable.func_());
-          }
-          catch(...) {
-            awaitable.result_.set_exception(std::current_exception());
-          }
-          handle.resume();
+    decltype(auto)
+    operator co_await() & = delete; // async should be co_awaited only once (on rvalue)
+    decltype(auto) operator co_await() && {
+        struct awaiter {
+            async &awaitable;
+            bool await_ready() const noexcept {
+                TRACE_FUNC();
+                return false;
+            }
+            void await_suspend(std::coroutine_handle<> handle) {
+                auto work = [&, handle]() {
+                    TRACE_FUNC();
+                    try {
+                        if constexpr (std::is_void_v<return_type>)
+                            awaitable.func_();
+                        else
+                            awaitable.result_.set_value(awaitable.func_());
+                    } catch (...) {
+                        awaitable.result_.set_exception(std::current_exception());
+                    }
+                    handle.resume();
+                };
+
+                TRACE_FUNC();
+                std::jthread(work).detach(); // TODO: Fix that (replace with a thread pool)
+            }
+            decltype(auto) await_resume() {
+                TRACE_FUNC();
+                return std::move(awaitable.result_).get();
+            }
         };
+        return awaiter {*this};
+    }
 
-        TRACE_FUNC();
-        std::jthread(work).detach();  // TODO: Fix that (replace with a thread pool)
-      }
-      decltype(auto) await_resume() { TRACE_FUNC(); return std::move(awaitable.result_).get(); }
-    };
-    return awaiter{*this};
-  }
-private:
-  Func func_;
-  detail::storage<return_type> result_;
+  private:
+    Func func_;
+    detail::storage<return_type> result_;
 };
 
-template<typename F>
+template <typename F>
 async(F) -> async<F>;
 
 } // namespace mp_coro

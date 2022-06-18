@@ -31,90 +31,82 @@
 
 namespace mp_coro::detail {
 
-template<typename Sync, task_value_type T>
-  requires requires(Sync s) { s.notify_awaitable_completed(); }
+template <typename Sync, task_value_type T>
+requires requires(Sync s) {
+    s.notify_awaitable_completed();
+}
 class [[nodiscard]] synchronized_task {
-public:
-  using value_type = T;
-  
-  struct promise_type : private detail::noncopyable, task_promise_storage<T> {
-    Sync* sync = nullptr;
+  public:
+    using value_type = T;
 
-    static std::suspend_always initial_suspend() noexcept
-    { 
-      TRACE_FUNC();
-      return {};
-    }
+    struct promise_type : private detail::noncopyable, task_promise_storage<T> {
+        Sync *sync = nullptr;
 
-    static awaiter_of<void> auto final_suspend() noexcept
-    {
-      struct final_awaiter : std::suspend_always {
-        void await_suspend(std::coroutine_handle<promise_type> this_coro) noexcept
-        {
-          TRACE_FUNC();
-          this_coro.promise().sync->notify_awaitable_completed();
+        static std::suspend_always initial_suspend() noexcept {
+            TRACE_FUNC();
+            return {};
         }
-      };
-      TRACE_FUNC();
-      return final_awaiter{};
+
+        static awaiter_of<void> auto final_suspend() noexcept {
+            struct final_awaiter : std::suspend_always {
+                void await_suspend(std::coroutine_handle<promise_type> this_coro) noexcept {
+                    TRACE_FUNC();
+                    this_coro.promise().sync->notify_awaitable_completed();
+                }
+            };
+            TRACE_FUNC();
+            return final_awaiter {};
+        }
+
+        synchronized_task get_return_object() noexcept {
+            TRACE_FUNC();
+            return this;
+        }
+    };
+
+    synchronized_task(synchronized_task &&) = default;
+    synchronized_task &operator=(synchronized_task &&) = delete;
+
+    // custom functions
+    void start(Sync &s) {
+        promise_->sync = &s;
+        std::coroutine_handle<promise_type>::from_promise(*promise_).resume();
     }
 
-    synchronized_task get_return_object() noexcept
-    {
-      TRACE_FUNC();
-      return this;
+    [[nodiscard]] decltype(auto) get() const & {
+        TRACE_FUNC();
+        return promise_->get();
     }
-  };
 
-  synchronized_task(synchronized_task&&) = default;
-  synchronized_task& operator=(synchronized_task&&) = delete;
+    [[nodiscard]] decltype(auto) get() const && {
+        TRACE_FUNC();
+        return std::move(*promise_).get();
+    }
 
-  // custom functions
-  void start(Sync& s)
-  {
-    promise_->sync = &s;
-    std::coroutine_handle<promise_type>::from_promise(*promise_).resume();
-  }
+    [[nodiscard]] decltype(auto) nonvoid_get() const & {
+        TRACE_FUNC();
+        return promise_->nonvoid_get();
+    }
 
-  [[nodiscard]] decltype(auto) get() const &
-  {
-    TRACE_FUNC();
-    return promise_->get();
-  }
+    [[nodiscard]] decltype(auto) nonvoid_get() const && {
+        TRACE_FUNC();
+        return std::move(*promise_).nonvoid_get();
+    }
 
-  [[nodiscard]] decltype(auto) get() const &&
-  {
-    TRACE_FUNC();
-    return std::move(*promise_).get();
-  }
+  private:
+    promise_ptr<promise_type> promise_;
 
-  [[nodiscard]] decltype(auto) nonvoid_get() const &
-  {
-    TRACE_FUNC();
-    return promise_->nonvoid_get();
-  }
-
-  [[nodiscard]] decltype(auto) nonvoid_get() const &&
-  {
-    TRACE_FUNC();
-    return std::move(*promise_).nonvoid_get();
-  }
-
-private:
-  promise_ptr<promise_type> promise_;
-
-  synchronized_task(promise_type* promise): promise_(promise)
-  {
-    TRACE_FUNC();
-  }
+    synchronized_task(promise_type *promise) : promise_(promise) { TRACE_FUNC(); }
 };
 
-template<typename Sync, awaitable A>
-  requires requires(Sync s) { s.notify_awaitable_completed(); }
-synchronized_task<Sync, remove_rvalue_reference_t<await_result_t<A>>> make_synchronized_task(A&& awaitable)
-{ 
-  TRACE_FUNC();
-  co_return co_await std::forward<A>(awaitable);
+template <typename Sync, awaitable A>
+requires requires(Sync s) {
+    s.notify_awaitable_completed();
+}
+synchronized_task<Sync, remove_rvalue_reference_t<await_result_t<A>>>
+make_synchronized_task(A &&awaitable) {
+    TRACE_FUNC();
+    co_return co_await std::forward<A>(awaitable);
 }
 
 } // namespace mp_coro::detail
