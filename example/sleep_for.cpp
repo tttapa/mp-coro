@@ -27,32 +27,28 @@
 #include <iostream>
 #include <thread>
 
-template<mp_coro::specialization_of<std::chrono::duration> D>
+template <mp_coro::specialization_of<std::chrono::duration> D>
 struct sleep_for {
-  D duration;
-  bool await_ready() const noexcept { return duration <= D::zero(); }
-  std::coroutine_handle<> await_suspend(std::coroutine_handle<> coro) const
-  {
-    std::this_thread::sleep_for(duration);
-    return coro;
-  }
-  static void await_resume() noexcept {}
+    D duration;
+    bool await_ready() const noexcept { return duration <= D::zero(); }
+    std::coroutine_handle<> await_suspend(std::coroutine_handle<> coro) const {
+        std::this_thread::sleep_for(duration);
+        return coro;
+    }
+    static void await_resume() noexcept {}
 };
 
-mp_coro::task<> sleepy()
-{
-  using namespace std::chrono_literals;
-  std::cout << "sleepy(): about to sleep\n";
-  co_await sleep_for{1s};
-  std::cout << "sleepy(): about to return\n";
+mp_coro::task<> sleepy() {
+    using namespace std::chrono_literals;
+    std::cout << "sleepy(): about to sleep\n";
+    co_await sleep_for {1s};
+    std::cout << "sleepy(): about to return\n";
 }
 
-int main()
-{
-  try {
-    mp_coro::sync_await(sleepy());
-  }
-  catch(const std::exception& ex) {
-    std::cout << "Unhandled exception: " << ex.what() << '\n';
-  }
+int main() {
+    try {
+        mp_coro::sync_await(sleepy());
+    } catch (const std::exception &ex) {
+        std::cout << "Unhandled exception: " << ex.what() << '\n';
+    }
 }

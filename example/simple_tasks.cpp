@@ -24,60 +24,50 @@
 #include <mp-coro/task.h>
 #include <iostream>
 
-mp_coro::task<int> foo()
-{
-  std::cout << "foo(): about to return\n";
-  co_return 42;
+mp_coro::task<int> foo() {
+    std::cout << "foo(): about to return\n";
+    co_return 42;
 }
 
-mp_coro::task<int> bar()
-{
-  auto result = foo();
-  std::cout << "bar(): about to co_await\n";
-  const int i = co_await result;
-  std::cout << "i = " << i << '\n';
-  std::cout << "bar(): about to return\n";
-  co_return i + 23;
+mp_coro::task<int> bar() {
+    auto result = foo();
+    std::cout << "bar(): about to co_await\n";
+    const int i = co_await result;
+    std::cout << "i = " << i << '\n';
+    std::cout << "bar(): about to return\n";
+    co_return i + 23;
 }
 
 int val = 123;
 
-mp_coro::task<int&> ref()
-{
-  co_return val;
+mp_coro::task<int &> ref() { co_return val; }
+
+mp_coro::task<> baz() {
+    std::cout << co_await foo() << '\n';
+    std::cout << co_await ref() << '\n';
 }
 
-mp_coro::task<> baz()
-{
-  std::cout << co_await foo() << '\n';
-  std::cout << co_await ref() << '\n';
+mp_coro::task<> empty() {
+    std::cout << "empty\n";
+    co_return;
 }
 
-mp_coro::task<> empty()
-{
-  std::cout << "empty\n";
-  co_return;
+mp_coro::task<> multiple_await() {
+    auto task = foo();
+    std::cout << "Result #1: " << co_await task << '\n';
+    std::cout << "Result #2: " << co_await task << '\n';
+    std::cout << "Result #3: " << co_await std::move(task) << '\n';
 }
 
-mp_coro::task<> multiple_await()
-{
-  auto task = foo();
-  std::cout << "Result #1: " << co_await task << '\n';
-  std::cout << "Result #2: " << co_await task << '\n';
-  std::cout << "Result #3: " << co_await std::move(task) << '\n';
-}
-
-int main()
-{
-  try {
-    auto task = bar();
-    std::cout << "i = " << sync_await(task) << '\n';
-    sync_await(baz());
-    sync_await(empty());
-    std::cout << sync_await(ref()) << '\n';
-    sync_await(multiple_await());
-  }
-  catch(const std::exception& ex) {
-    std::cout << "Unhandled exception: " << ex.what() << '\n';
-  }
+int main() {
+    try {
+        auto task = bar();
+        std::cout << "i = " << sync_await(task) << '\n';
+        sync_await(baz());
+        sync_await(empty());
+        std::cout << sync_await(ref()) << '\n';
+        sync_await(multiple_await());
+    } catch (const std::exception &ex) {
+        std::cout << "Unhandled exception: " << ex.what() << '\n';
+    }
 }

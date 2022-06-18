@@ -34,52 +34,52 @@ static_assert(awaitable<std::suspend_always>);
 static_assert(awaitable_of<std::suspend_always, void>);
 
 // async<int(*)()>
-static_assert(awaitable_of<async<int(*)()>, int&&>);
-static_assert(awaitable_of<async<int(*)()>&&, int&&>);
-static_assert(!awaitable<async<int(*)()>&>);
-static_assert(!awaitable<const async<int(*)()>&>);
+static_assert(awaitable_of<async<int (*)()>, int &&>);
+static_assert(awaitable_of<async<int (*)()> &&, int &&>);
+static_assert(!awaitable<async<int (*)()> &>);
+static_assert(!awaitable<const async<int (*)()> &>);
 
 // async<int&(*)()>
-static_assert(awaitable_of<async<int&(*)()>, int&>);
-static_assert(awaitable_of<async<int&(*)()>&&, int&>);
-static_assert(!awaitable<async<int&(*)()>&>);
-static_assert(!awaitable<const async<int&(*)()>&>);
+static_assert(awaitable_of<async<int &(*)()>, int &>);
+static_assert(awaitable_of<async<int &(*)()> &&, int &>);
+static_assert(!awaitable<async<int &(*)()> &>);
+static_assert(!awaitable<const async<int &(*)()> &>);
 
 // async<const int&(*)()>
-static_assert(awaitable_of<async<const int&(*)()>, const int&>);
-static_assert(awaitable_of<async<const int&(*)()>&&, const int&>);
-static_assert(!awaitable<async<const int&(*)()>&>);
-static_assert(!awaitable<const async<const int&(*)()>&>);
+static_assert(awaitable_of<async<const int &(*)()>, const int &>);
+static_assert(awaitable_of<async<const int &(*)()> &&, const int &>);
+static_assert(!awaitable<async<const int &(*)()> &>);
+static_assert(!awaitable<const async<const int &(*)()> &>);
 
 // async<void(*)()>
-static_assert(awaitable_of<async<void(*)()>, void>);
-static_assert(awaitable_of<async<void(*)()>&&, void>);
-static_assert(!awaitable<async<void(*)()>&>);
-static_assert(!awaitable<const async<int(*)()>&>);
+static_assert(awaitable_of<async<void (*)()>, void>);
+static_assert(awaitable_of<async<void (*)()> &&, void>);
+static_assert(!awaitable<async<void (*)()> &>);
+static_assert(!awaitable<const async<int (*)()> &>);
 
 // task<int>
-static_assert(awaitable_of<task<int>, int&&>);
-static_assert(awaitable_of<task<int>&, const int&>);
-static_assert(awaitable_of<const task<int>&, const int&>);
-static_assert(awaitable_of<task<int>&&, int&&>);
+static_assert(awaitable_of<task<int>, int &&>);
+static_assert(awaitable_of<task<int> &, const int &>);
+static_assert(awaitable_of<const task<int> &, const int &>);
+static_assert(awaitable_of<task<int> &&, int &&>);
 
 // task<int&>
-static_assert(awaitable_of<task<int&>, int&>);
-static_assert(awaitable_of<task<int&>&, int&>);
-static_assert(awaitable_of<const task<int&>&, int&>);
-static_assert(awaitable_of<task<int&>&&, int&>);
+static_assert(awaitable_of<task<int &>, int &>);
+static_assert(awaitable_of<task<int &> &, int &>);
+static_assert(awaitable_of<const task<int &> &, int &>);
+static_assert(awaitable_of<task<int &> &&, int &>);
 
 // task<const int&>
-static_assert(awaitable_of<task<const int&>, const int&>);
-static_assert(awaitable_of<task<const int&>&, const int&>);
-static_assert(awaitable_of<const task<const int&>&, const int&>);
-static_assert(awaitable_of<task<const int&>&&, const int&>);
+static_assert(awaitable_of<task<const int &>, const int &>);
+static_assert(awaitable_of<task<const int &> &, const int &>);
+static_assert(awaitable_of<const task<const int &> &, const int &>);
+static_assert(awaitable_of<task<const int &> &&, const int &>);
 
 // task<void>
 static_assert(awaitable_of<task<void>, void>);
-static_assert(awaitable_of<task<void>&, void>);
-static_assert(awaitable_of<const task<void>&, void>);
-static_assert(awaitable_of<task<void>&&, void>);
+static_assert(awaitable_of<task<void> &, void>);
+static_assert(awaitable_of<const task<void> &, void>);
+static_assert(awaitable_of<task<void> &&, void>);
 
 // generator<int>
 static_assert(!awaitable<generator<int>>);
@@ -88,6 +88,4 @@ static_assert(std::ranges::input_range<generator<int>>);
 static_assert(std::ranges::viewable_range<generator<int>>);
 static_assert(std::ranges::view<generator<int>>);
 
-int main()
-{
-}
+int main() {}
