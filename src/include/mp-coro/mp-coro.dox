@@ -1,0 +1,6 @@
+namespace mp_coro {
+/**
+ * @defgroup coro_ret_types Coroutine return types
+ * @brief Return types for coroutines, like @ref task, @ref generator, etc.
+ */
+}

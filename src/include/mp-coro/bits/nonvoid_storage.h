@@ -43,7 +43,7 @@ class nonvoid_storage : public storage<T> {
     [[nodiscard]] const value_type &nonvoid_get() const & { return this->get(); }
     [[nodiscard]] value_type &&nonvoid_get() && { return std::move(*this).get(); }
 
-    [[nodiscard]] T &nonvoid_get() const requires std::is_reference_v<T> { return this->get(); }
+    [[nodiscard]] T &nonvoid_get() const &requires std::is_reference_v<T> { return this->get(); }
 };
 
 template <>

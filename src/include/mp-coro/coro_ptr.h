@@ -28,6 +28,7 @@
 
 namespace mp_coro {
 
+/// If the given promise object has an associated coroutine, destroy it.
 struct coro_deleter {
     template <typename Promise>
     void operator()(Promise *promise) const noexcept {
@@ -38,6 +39,7 @@ struct coro_deleter {
     }
 };
 
+/// RAII wrapper that destroys promise object's associated coroutine.
 template <typename T>
 using promise_ptr = std::unique_ptr<T, coro_deleter>;
 

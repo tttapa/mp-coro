@@ -26,6 +26,8 @@
 
 namespace mp_coro::detail {
 
+/// Apply member `operator co_await` if it exists, otherwise, apply global 
+/// `operator co_await` if it exists, otherwise, simply forward @p awaitable.
 template <typename T>
 decltype(auto) get_awaiter(T &&awaitable) {
     if constexpr (requires { std::forward<T>(awaitable).operator co_await(); })

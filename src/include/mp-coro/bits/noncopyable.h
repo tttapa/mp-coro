@@ -24,6 +24,7 @@
 
 namespace mp_coro::detail {
 
+/// Base class with deleted copy constructor and copy assignment operator.
 struct noncopyable {
     noncopyable() = default;
     noncopyable(const noncopyable &) = delete;

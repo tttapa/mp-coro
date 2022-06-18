@@ -34,6 +34,7 @@
 
 namespace mp_coro {
 
+/// @ingroup coro_ret_types
 template <typename T>
 class [[nodiscard]] generator {
   public:
