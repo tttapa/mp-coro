@@ -25,7 +25,15 @@ $extrastylesheet
 <body>
   <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
   <script>
-    mermaid.initialize({ startOnLoad: true });
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base', 
+        themeVariables: {
+            primaryColor: '#f4f4ff',
+            secondaryColor: 'rgba(244,244,255,0.9)',
+            tertiaryColor: '#F9FAFC',
+        },
+    });
   </script>
 <!--BEGIN DISABLE_INDEX-->
   <!--BEGIN FULL_SIDEBAR-->
