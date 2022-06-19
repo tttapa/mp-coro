@@ -33,11 +33,11 @@
 
 namespace mp_coro {
 
-/// Task that produces a value of type @p T. To get that value, simply await the
+/// Task that produces a value of type `T`: to get that value, simply await the
 /// @ref task.
 ///
 /// Tasks are lazy: they always suspend initially. Each task has an optional
-/// continuation (i.e. the coroutine that is waiting for the result of this 
+/// continuation (i.e. the coroutine that is waiting for the result of this
 /// task) that is resumed at the final suspend point.
 ///
 /// @tparam T           Type of the value returned.
@@ -46,7 +46,7 @@ namespace mp_coro {
 /// @see https://lewissbaker.github.io/2020/05/11/understanding_symmetric_transfer
 ///
 /// @par Example
-/// 
+///
 /// ```cpp
 /// task<> foo() {
 ///     co_return;
@@ -57,6 +57,8 @@ namespace mp_coro {
 /// }
 /// ```
 /// @mermaid{task}
+///
+/// @todo   Support custom allocators.
 ///
 /// @ingroup coro_ret_types
 template <task_value_type T = void, typename Allocator = void>
@@ -159,7 +161,7 @@ class [[nodiscard]] task {
     }
 
   private:
-    /// An owning pointer to the promise object in the coroutine frame. 
+    /// An owning pointer to the promise object in the coroutine frame.
     /// When the task is destructed, this will cause the coroutine frame to be
     /// destroyed automatically.
     promise_ptr<promise_type> promise_;
@@ -168,6 +170,7 @@ class [[nodiscard]] task {
     task(promise_type *promise) : promise_(promise) { TRACE_FUNC(); }
 };
 
+/// @relates task
 template <awaitable A>
 task<remove_rvalue_reference_t<await_result_t<A>>> make_task(A &&awaitable) {
     TRACE_FUNC();

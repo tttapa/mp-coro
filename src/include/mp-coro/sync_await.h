@@ -29,6 +29,9 @@
 
 namespace mp_coro {
 
+/// Creates a [synchronized task](@ref detail::make_synchronized_task) from the
+/// awaitable, starts it, and waits for it to complete, returning the result.
+/// Uses a `std::binary_semaphore` for waiting and synchronization.
 template <awaitable A>
 [[nodiscard]] decltype(auto) sync_await(A &&awaitable) {
     struct sync {

@@ -43,27 +43,28 @@ class when_all_sync {
 
   public:
     constexpr when_all_sync(std::size_t count) noexcept
-        : counter_(count + 1) // +1 for attaching a continuation
-    {}
+        : counter_(count + 1) {} // +1 for attaching a continuation
     when_all_sync(when_all_sync &&other) noexcept
         : counter_(other.counter_.load()), continuation_(other.continuation_) {}
 
-    // Returns false when a continuation is being attached when all work is already done
-    // and the current coroutine should be resumed right away via Symmetric Control Transfer.
+    /// @retval false when a continuation is being attached when all work is
+    /// already done and the current coroutine should be resumed right away via
+    /// Symmetric Control Transfer.
     bool set_continuation(std::coroutine_handle<> cont) {
         continuation_ = cont;
         return counter_.fetch_sub(1, std::memory_order_acq_rel) > 1;
     }
 
-    // On completion of each task a counter is being decremented and if the continuation is already
-    // attached (a counter was decremented by `set_continuation()`) it is being resumed.
+    /// On completion of each task a counter is being decremented and if the 
+    /// continuation is already attached (a counter was decremented by 
+    /// @ref set_continuation() it is being resumed.
     void notify_awaitable_completed() {
         if (counter_.fetch_sub(1, std::memory_order_acq_rel) == 1)
             continuation_.resume();
     }
 
-    // True if the continuation is already assigned which means that someone already awaited for
-    // the awaitable completion.
+    /// @retval true if the continuation is already assigned which means that
+    /// someone already awaited for the awaitable completion.
     bool is_ready() const { return static_cast<bool>(continuation_); }
 };
 
@@ -171,9 +172,9 @@ awaitable auto when_all(Awaitables &&...awaitables) {
 template <std::ranges::range R>
 awaitable auto when_all(R &&awaitables) {
     TRACE_FUNC();
-    std::vector<detail::synchronized_task<detail::when_all_sync,
-                                          await_result_t<std::ranges::range_reference_t<R>>>>
-        tasks;
+    using result_t = await_result_t<std::ranges::range_reference_t<R>>;
+    using task_t = detail::synchronized_task<detail::when_all_sync, result_t>;
+    std::vector<task_t> tasks;
     tasks.reserve(size(awaitables));
     for (auto &&awaitable : std::forward<R>(awaitables))
         tasks.emplace_back(detail::make_synchronized_task<detail::when_all_sync>(

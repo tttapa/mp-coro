@@ -28,12 +28,14 @@
 
 namespace mp_coro::detail {
 
+/// If rethrow contains an exception, rethrow it.
 template <typename... Args>
 void check_and_rethrow(const std::variant<Args...> &result) {
     if (std::holds_alternative<std::exception_ptr>(result))
         std::rethrow_exception(std::get<std::exception_ptr>(std::move(result)));
 }
 
+/// Storage class that can either contain a value, an exception, or be empty.
 template <typename T>
 class storage_base {
   protected:
@@ -57,6 +59,8 @@ class storage_base {
     }
 };
 
+/// Storage class that can either contain a reference to a value, an exception,
+/// or be empty.
 template <typename T>
 class storage_base<T &> {
   protected:
@@ -71,6 +75,7 @@ class storage_base<T &> {
     }
 };
 
+/// Storage class that can either an exception, or be empty.
 template <>
 class storage_base<void> {
   protected:
@@ -80,6 +85,7 @@ class storage_base<void> {
     void get() const { check_and_rethrow(this->result); }
 };
 
+/// Storage class that can either contain a value, an exception, or be empty.
 template <typename T>
 class storage : public storage_base<T> {
   public:

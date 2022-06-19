@@ -87,4 +87,11 @@ concept awaitable_of = awaitable<T> &&requires(T &&t) {
 template <typename T>
 concept task_value_type = std::move_constructible<T> || std::is_reference_v<T> || std::is_void_v<T>;
 
+/// Type that supports the `notify_awaitable_completed()` member function used
+/// by @ref mp_coro::detail::synchronized_task.
+template <typename Sync>
+concept sync_notification_type = requires(Sync s) {
+    s.notify_awaitable_completed();
+};
+
 } // namespace mp_coro
