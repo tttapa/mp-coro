@@ -1,0 +1,9 @@
+<map id="task_promise_storage_base&lt; T &gt;" name="task_promise_storage_base&lt; T &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="85,440,271,532"/>
+<area shape="rect" id="node5" href="$structmp__coro_1_1detail_1_1task__promise__storage.html" title=" " alt="" coords="76,580,280,657"/>
+<area shape="rect" id="node2" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html" title=" " alt="" coords="94,285,262,392"/>
+<area shape="rect" id="node3" href="$classmp__coro_1_1detail_1_1storage.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="109,160,247,237"/>
+<area shape="rect" id="node4" href="$classmp__coro_1_1detail_1_1storage__base.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="105,5,251,112"/>
+<area shape="rect" id="node6" href="$structmp__coro_1_1detail_1_1synchronized__task_1_1promise__type.html" title="Required promise type for coroutines returning a synchronized_task." alt="" coords="5,705,167,812"/>
+<area shape="rect" id="node7" href="$structmp__coro_1_1task_1_1promise__type.html" title="Required promise type for coroutines returning a task." alt="" coords="191,705,352,812"/>
+</map>

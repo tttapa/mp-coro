@@ -1,0 +1,4 @@
+<map id="await_suspend" name="await_suspend">
+<area shape="rect" id="node1" title="Set the current coroutine as this task&#39;s continuation, and then resume this task&#39;s coroutine." alt="" coords="240,13,359,39"/>
+<area shape="rect" id="node2" href="$classmp__coro_1_1async.html#a2c5b02a3e9d6dee7dd5185de8791a2b2" title=" " alt="" coords="5,5,192,47"/>
+</map>

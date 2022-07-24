@@ -1,0 +1,7 @@
+<map id="operator co_await" name="operator co_await">
+<area shape="rect" id="node1" title=" " alt="" coords="5,46,144,73"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1task_1_1awaiter.html#a3ffaa5cd66a8d18b91ed92bac4a31858" title="Return the value of the task&#39;s promise." alt="" coords="192,5,363,47"/>
+<area shape="rect" id="node5" href="$namespacemp__coro_1_1detail.html#a6748457c3f2853438dabcd91590e0af4" title=" " alt="" coords="194,71,361,112"/>
+<area shape="rect" id="node3" href="$classmp__coro_1_1detail_1_1storage__base.html#a12a244caa425ee3044a5b8d6448d9fb1" title=" " alt="" coords="411,5,591,47"/>
+<area shape="rect" id="node4" href="$namespacemp__coro_1_1detail.html#a014f571ae69c39715af7439c8abe52cc" title="If rethrow contains an exception, rethrow it." alt="" coords="639,5,808,47"/>
+</map>

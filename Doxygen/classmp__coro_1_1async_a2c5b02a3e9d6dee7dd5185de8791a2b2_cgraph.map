@@ -1,0 +1,8 @@
+<map id="operator co_await" name="operator co_await">
+<area shape="rect" id="node1" title=" " alt="" coords="5,78,144,105"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1task_1_1awaiter.html#a3a4221f9d558f4c787b0305583d47c04" title="Returns true if the task&#39;s coroutine is already done (suspended at its final suspension point)." alt="" coords="192,5,363,47"/>
+<area shape="rect" id="node3" href="$structmp__coro_1_1task_1_1awaiter.html#a3ffaa5cd66a8d18b91ed92bac4a31858" title="Return the value of the task&#39;s promise." alt="" coords="192,71,363,112"/>
+<area shape="rect" id="node6" href="$structmp__coro_1_1task_1_1awaiter.html#a8fe935a064e2686356e62d12282aba70" title="Set the current coroutine as this task&#39;s continuation, and then resume this task&#39;s coroutine." alt="" coords="192,136,363,177"/>
+<area shape="rect" id="node4" href="$classmp__coro_1_1detail_1_1storage__base.html#a12a244caa425ee3044a5b8d6448d9fb1" title=" " alt="" coords="411,71,591,112"/>
+<area shape="rect" id="node5" href="$namespacemp__coro_1_1detail.html#a014f571ae69c39715af7439c8abe52cc" title="If rethrow contains an exception, rethrow it." alt="" coords="639,71,808,112"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="task_promise_storage&lt; void &gt;" name="task_promise_storage&lt; void &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="15,580,182,672"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1detail_1_1task__promise__storage__base.html" title=" " alt="" coords="5,440,192,532"/>
+<area shape="rect" id="node3" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html" title=" " alt="" coords="15,285,183,392"/>
+<area shape="rect" id="node4" href="$classmp__coro_1_1detail_1_1storage.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="29,160,168,237"/>
+<area shape="rect" id="node5" href="$classmp__coro_1_1detail_1_1storage__base.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="25,5,172,112"/>
+</map>

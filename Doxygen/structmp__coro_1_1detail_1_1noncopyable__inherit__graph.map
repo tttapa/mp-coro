@@ -1,0 +1,6 @@
+<map id="noncopyable" name="noncopyable">
+<area shape="rect" id="node1" title="Base class with deleted copy constructor and copy assignment operator." alt="" coords="219,5,350,112"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1detail_1_1synchronized__task_1_1promise__type.html" title="Required promise type for coroutines returning a synchronized_task." alt="" coords="5,189,167,296"/>
+<area shape="rect" id="node3" href="$structmp__coro_1_1generator_1_1promise__type.html" title=" " alt="" coords="191,160,378,325"/>
+<area shape="rect" id="node4" href="$structmp__coro_1_1task_1_1promise__type.html" title="Required promise type for coroutines returning a task." alt="" coords="403,189,564,296"/>
+</map>

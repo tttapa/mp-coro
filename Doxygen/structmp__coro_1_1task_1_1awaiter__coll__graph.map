@@ -1,0 +1,10 @@
+<map id="task&lt; T, Allocator &gt;::awaiter" name="task&lt; T, Allocator &gt;::awaiter">
+<area shape="rect" id="node1" title="Awaiter type for awaiting the result of a task." alt="" coords="15,911,159,1032"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1task_1_1promise__type.html" title="Required promise type for coroutines returning a task." alt="" coords="6,741,167,848"/>
+<area shape="rect" id="node3" href="$structmp__coro_1_1detail_1_1noncopyable.html" title="Base class with deleted copy constructor and copy assignment operator." alt="" coords="5,585,136,692"/>
+<area shape="rect" id="node4" href="$structmp__coro_1_1detail_1_1task__promise__storage.html" title=" " alt="" coords="161,600,365,677"/>
+<area shape="rect" id="node5" href="$structmp__coro_1_1detail_1_1task__promise__storage__base.html" title=" " alt="" coords="169,444,356,536"/>
+<area shape="rect" id="node6" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html" title=" " alt="" coords="179,288,347,395"/>
+<area shape="rect" id="node7" href="$classmp__coro_1_1detail_1_1storage.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="193,161,332,239"/>
+<area shape="rect" id="node8" href="$classmp__coro_1_1detail_1_1storage__base.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="189,5,336,112"/>
+</map>

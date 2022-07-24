@@ -1,0 +1,15 @@
+<map id="storage_base&lt; T &gt;" name="storage_base&lt; T &gt;">
+<area shape="rect" id="node1" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="207,5,354,112"/>
+<area shape="rect" id="node2" href="$classmp__coro_1_1detail_1_1storage.html" title=" " alt="" coords="30,160,169,237"/>
+<area shape="rect" id="node4" href="$classmp__coro_1_1detail_1_1storage.html" title=" " alt="" coords="193,160,369,237"/>
+<area shape="rect" id="node5" href="$classmp__coro_1_1detail_1_1storage.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="393,160,531,237"/>
+<area shape="rect" id="node3" href="$classmp__coro_1_1detail_1_1nonvoid__storage_3_01void_01_4.html" title=" " alt="" coords="5,300,193,377"/>
+<area shape="rect" id="node6" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html" title=" " alt="" coords="292,285,480,392"/>
+<area shape="rect" id="node7" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html" title=" " alt="" coords="505,285,673,392"/>
+<area shape="rect" id="node8" href="$structmp__coro_1_1detail_1_1task__promise__storage__base.html" title=" " alt="" coords="390,440,577,532"/>
+<area shape="rect" id="node10" href="$structmp__coro_1_1detail_1_1task__promise__storage__base.html" title=" " alt="" coords="601,440,787,532"/>
+<area shape="rect" id="node9" href="$structmp__coro_1_1detail_1_1task__promise__storage_3_01void_01_4.html" title=" " alt="" coords="400,580,567,672"/>
+<area shape="rect" id="node11" href="$structmp__coro_1_1detail_1_1task__promise__storage.html" title=" " alt="" coords="592,587,796,665"/>
+<area shape="rect" id="node12" href="$structmp__coro_1_1detail_1_1synchronized__task_1_1promise__type.html" title="Required promise type for coroutines returning a synchronized_task." alt="" coords="520,720,681,827"/>
+<area shape="rect" id="node13" href="$structmp__coro_1_1task_1_1promise__type.html" title="Required promise type for coroutines returning a task." alt="" coords="705,720,867,827"/>
+</map>

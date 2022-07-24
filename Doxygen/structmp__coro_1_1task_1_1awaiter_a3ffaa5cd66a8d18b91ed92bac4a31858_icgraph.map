@@ -1,0 +1,5 @@
+<map id="await_resume" name="await_resume">
+<area shape="rect" id="node1" title="Return the value of the task&#39;s promise." alt="" coords="240,57,355,84"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1detail_1_1when__all__awaitable.html#a41cc5ea5dd6aaa94fc81dc0a76facb60" title=" " alt="" coords="9,5,188,61"/>
+<area shape="rect" id="node3" href="$classmp__coro_1_1async.html#a2c5b02a3e9d6dee7dd5185de8791a2b2" title=" " alt="" coords="5,86,192,127"/>
+</map>

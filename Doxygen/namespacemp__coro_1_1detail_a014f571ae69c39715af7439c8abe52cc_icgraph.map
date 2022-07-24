@@ -1,0 +1,11 @@
+<map id="check_and_rethrow" name="check_and_rethrow">
+<area shape="rect" id="node1" title="If rethrow contains an exception, rethrow it." alt="" coords="743,111,891,138"/>
+<area shape="rect" id="node2" href="$classmp__coro_1_1detail_1_1storage__base_3_01T_01_6_01_4.html#ae2893386dcb56aa821ef423abd25817d" title=" " alt="" coords="493,5,673,47"/>
+<area shape="rect" id="node3" href="$classmp__coro_1_1detail_1_1storage__base_3_01void_01_4.html#a62091964d37840b587e47b13c2408209" title=" " alt="" coords="493,71,673,112"/>
+<area shape="rect" id="node4" href="$classmp__coro_1_1detail_1_1storage__base.html#a12a244caa425ee3044a5b8d6448d9fb1" title=" " alt="" coords="493,136,673,177"/>
+<area shape="rect" id="node9" href="$classmp__coro_1_1detail_1_1nonvoid__storage_3_01void_01_4.html#ac0874ff72f5778e86420bcddd083b96b" title=" " alt="" coords="471,201,695,243"/>
+<area shape="rect" id="node5" href="$structmp__coro_1_1task_1_1awaiter.html#a3ffaa5cd66a8d18b91ed92bac4a31858" title="Return the value of the task&#39;s promise." alt="" coords="246,103,417,144"/>
+<area shape="rect" id="node8" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html#ae10f0ddc271baf9b60b2c44a049f6106" title=" " alt="" coords="240,168,423,209"/>
+<area shape="rect" id="node6" href="$structmp__coro_1_1detail_1_1when__all__awaitable.html#a41cc5ea5dd6aaa94fc81dc0a76facb60" title=" " alt="" coords="9,58,188,114"/>
+<area shape="rect" id="node7" href="$classmp__coro_1_1async.html#a2c5b02a3e9d6dee7dd5185de8791a2b2" title=" " alt="" coords="5,139,192,180"/>
+</map>

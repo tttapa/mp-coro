@@ -1,0 +1,11 @@
+<map id="trace.h" name="trace.h">
+<area shape="rect" id="node1" title=" " alt="" coords="253,5,320,32"/>
+<area shape="rect" id="node2" href="$async_8h.html" title=" " alt="" coords="5,80,77,107"/>
+<area shape="rect" id="node3" href="$coro__ptr_8h.html" title=" " alt="" coords="203,80,290,107"/>
+<area shape="rect" id="node4" href="$generator_8h.html" title=" " alt="" coords="152,155,248,181"/>
+<area shape="rect" id="node5" href="$synchronized__task_8h.html" title=" " alt="" coords="272,155,427,181"/>
+<area shape="rect" id="node6" href="$sync__await_8h.html" title=" " alt="" coords="207,229,313,256"/>
+<area shape="rect" id="node7" href="$when__all_8h.html" title=" " alt="" coords="393,229,485,256"/>
+<area shape="rect" id="node8" href="$task_8h.html" title=" " alt="" coords="451,155,514,181"/>
+<area shape="rect" id="node9" href="$task__promise__storage_8h.html" title=" " alt="" coords="365,80,544,107"/>
+</map>

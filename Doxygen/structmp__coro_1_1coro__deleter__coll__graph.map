@@ -1,0 +1,3 @@
+<map id="coro_deleter" name="coro_deleter">
+<area shape="rect" id="node1" title="If the given promise object has an associated coroutine, destroy it." alt="" coords="5,5,117,83"/>
+</map>

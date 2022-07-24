@@ -1,0 +1,9 @@
+<map id="synchronized_task&lt; Sync, T &gt;::promise_type" name="synchronized_task&lt; Sync, T &gt;::promise_type">
+<area shape="rect" id="node1" title="Required promise type for coroutines returning a synchronized_task." alt="" coords="74,735,259,856"/>
+<area shape="rect" id="node2" href="$structmp__coro_1_1detail_1_1noncopyable.html" title="Base class with deleted copy constructor and copy assignment operator." alt="" coords="5,580,136,687"/>
+<area shape="rect" id="node3" href="$structmp__coro_1_1detail_1_1task__promise__storage.html" title=" " alt="" coords="161,595,365,672"/>
+<area shape="rect" id="node4" href="$structmp__coro_1_1detail_1_1task__promise__storage__base.html" title=" " alt="" coords="169,440,356,532"/>
+<area shape="rect" id="node5" href="$classmp__coro_1_1detail_1_1nonvoid__storage.html" title=" " alt="" coords="179,285,347,392"/>
+<area shape="rect" id="node6" href="$classmp__coro_1_1detail_1_1storage.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="193,160,332,237"/>
+<area shape="rect" id="node7" href="$classmp__coro_1_1detail_1_1storage__base.html" title="Storage class that can either contain a value, an exception, or be empty." alt="" coords="189,5,336,112"/>
+</map>

@@ -1,0 +1,3 @@
+<map id="task&lt; T, Allocator &gt;" name="task&lt; T, Allocator &gt;">
+<area shape="rect" id="node1" title="Task that produces a value of type T: to get that value, simply await the task." alt="" coords="5,5,169,156"/>
+</map>
