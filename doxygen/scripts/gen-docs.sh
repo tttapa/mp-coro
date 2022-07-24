@@ -5,6 +5,7 @@ repodir="$PWD"/../..
 cd "$repodir"
 
 output_folder="${1:-/tmp}"
+doxygen_bin="${2:-doxygen}"
 mkdir -p "$output_folder"
 
 # Function that builds the doxygen documentation.
@@ -27,7 +28,7 @@ function run_doxygen {
 	GENERATE_LATEX = NO
 	EOF
     # Generate the documentation
-    doxygen tmp-Doxyfile
+    "$doxygen_bin" tmp-Doxyfile
     rm -f tmp-Doxyfile
     popd
 }

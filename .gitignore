@@ -39,6 +39,7 @@
 /build/
 /out/
 _build/
+.*cache
 
 # Conan
 *.pyc
@@ -47,3 +48,4 @@ _build/
 # Docs
 docs/*
 !docs/README.md
+tmp-Doxyfile

@@ -10,4 +10,5 @@ GitHub: <https://github.com/tttapa/mp-coro>
 
 - @ref mp_coro::task
 - [**Modules**](./modules.html)
+- [**Examples**](./examples.html)
 - @ref ext-resources
